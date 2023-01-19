@@ -24,5 +24,16 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+        stage('sonar quality check'){
+            steps{
+                withSonarQubeEnv('sonar'){
+                    sh "mvn sonar:sonar \
+                -Dsonar.projectKey=jenkins-sonar-integration \
+                -Dsonar.host.url=http://3.109.108.203:9000/"
+                    }
+            }
+        }
+                   
     }
+    
 }
